@@ -4037,11 +4037,10 @@ func Test_python3_iter_ref()
       for el in v:
         vim.vars['dict_iter_ref_count_increase'] = sys.getrefcount(v) - base_ref_count
 
-      if sys.version_info < (3, 13):
-        v = vim.buffers
-        base_ref_count = sys.getrefcount(v)
-        for el in v:
-          vim.vars['bufmap_iter_ref_count_increase'] = sys.getrefcount(v) - base_ref_count
+      v = vim.buffers
+      base_ref_count = sys.getrefcount(v)
+      for el in v:
+        vim.vars['bufmap_iter_ref_count_increase'] = sys.getrefcount(v) - base_ref_count
 
       v = vim.options
       base_ref_count = sys.getrefcount(v)
