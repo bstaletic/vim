@@ -4039,7 +4039,9 @@ func Test_python3_iter_ref()
 
       v = vim.buffers
       base_ref_count = sys.getrefcount(v)
+      vim.eval( 'assert_report("' + str(sys.getrefcount(v)) + '")')
       for el in v:
+        vim.eval( 'assert_report("' + str(sys.getrefcount(v)) + '")')
         vim.vars['bufmap_iter_ref_count_increase'] = sys.getrefcount(v) - base_ref_count
 
       v = vim.options
@@ -4052,6 +4054,7 @@ func Test_python3_iter_ref()
 
   call assert_equal(1, g:list_iter_ref_count_increase)
   call assert_equal(1, g:dict_iter_ref_count_increase)
+  call assert_report(join(py3eval('sys.version_info'), '.'))
   if join(py3eval('sys.version_info'), '.') < '3.13'
     call assert_equal(1, g:bufmap_iter_ref_count_increase)
   else
